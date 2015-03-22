@@ -7,6 +7,9 @@ ECHO Preparing environment...
 SETLOCAL ENABLEEXTENSIONS
 SET CACHED_NUGET=%LocalAppData%\NuGet\NuGet.exe
 
+IF "%APPVEYOR_REPO_BRANCH%" == "" SET APPVEYOR_REPO_BRANCH=LOCAL
+IF "%APPVEYOR_BUILD_NUMBER%" == "" SET APPVEYOR_BUILD_NUMBER=42
+
 IF "%APPVEYOR_REPO_BRANCH%" == "release" (
 	SET K_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER%
 ) ELSE (
@@ -25,6 +28,7 @@ md .nuget
 copy %CACHED_NUGET% .nuget\nuget.exe > nul
 
 :restore
+IF EXIST %USERPROFILE%\.k\bin\kvm.cmd goto run
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/release/kvminstall.ps1'))"
 CALL %USERPROFILE%\.k\bin\kvm install latest -runtime CLR -x86 -alias default || set errorlevel=1
 CALL %USERPROFILE%\.k\bin\kvm install latest -runtime CoreCLR -x86 || set errorlevel=1
