@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22609.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{08B7BD04-744D-4FDB-93A0-2F65A61F710B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3A19266-E8FD-43F9-BA91-A0F482676E0D}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SmartDev.ConfigurationMapper", "src\SmartDev.ConfigurationMapper\SmartDev.ConfigurationMapper.kproj", "{37982A9A-2018-4AA5-837F-45B5D3E473C8}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConfigurationMapper.UnitTests", "tests\ConfigurationMapper.UnitTests\ConfigurationMapper.UnitTests.kproj", "{4068492C-3CCD-4722-915E-08780ED726A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4E291A68-DD94-46A5-9342-467DD86C3417}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConfigurationMapper.IntegrationTests", "tests\ConfigurationMapper.IntegrationTests\ConfigurationMapper.IntegrationTests.kproj", "{59AA1F3D-3D98-41D2-903A-E7F1679F79EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37982A9A-2018-4AA5-837F-45B5D3E473C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37982A9A-2018-4AA5-837F-45B5D3E473C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37982A9A-2018-4AA5-837F-45B5D3E473C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37982A9A-2018-4AA5-837F-45B5D3E473C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4068492C-3CCD-4722-915E-08780ED726A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4068492C-3CCD-4722-915E-08780ED726A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4068492C-3CCD-4722-915E-08780ED726A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4068492C-3CCD-4722-915E-08780ED726A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59AA1F3D-3D98-41D2-903A-E7F1679F79EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59AA1F3D-3D98-41D2-903A-E7F1679F79EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59AA1F3D-3D98-41D2-903A-E7F1679F79EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59AA1F3D-3D98-41D2-903A-E7F1679F79EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{37982A9A-2018-4AA5-837F-45B5D3E473C8} = {08B7BD04-744D-4FDB-93A0-2F65A61F710B}
+		{4068492C-3CCD-4722-915E-08780ED726A0} = {4E291A68-DD94-46A5-9342-467DD86C3417}
+		{59AA1F3D-3D98-41D2-903A-E7F1679F79EF} = {4E291A68-DD94-46A5-9342-467DD86C3417}
+	EndGlobalSection
+EndGlobal
