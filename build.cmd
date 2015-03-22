@@ -41,10 +41,12 @@ IF NOT EXIST test-results MD test-results
 cd tests\ConfigurationMapper.UnitTests
 CALL k test -xml ..\..\test-results\ConfigurationMapper.UnitTests.xml || set errorlevel=1
 cd ..\..
+@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).UploadFile('https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)', (Resolve-Path .\test-results\ConfigurationMapper.UnitTests.xml)))"
 
 cd tests\ConfigurationMapper.IntegrationTests
 CALL k test -xml ..\..\test-results\ConfigurationMapper.IntegrationTests.xml || set errorlevel=1
 cd ..\..
+@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).UploadFile('https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)', (Resolve-Path .\test-results\ConfigurationMapper.IntegrationTests.xml)))"
 
 ECHO "Start packaging"
 
