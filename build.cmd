@@ -1,6 +1,9 @@
 @echo off
 cd %~dp0
 
+ECHO.
+ECHO Preparing environment...
+
 SETLOCAL ENABLEEXTENSIONS
 SET CACHED_NUGET=%LocalAppData%\NuGet\NuGet.exe
 
@@ -11,7 +14,8 @@ IF "%APPVEYOR_REPO_BRANCH%" == "release" (
 )
 
 IF EXIST %CACHED_NUGET% goto copynuget
-echo Downloading latest version of NuGet.exe...
+ECHO.
+ECHO Preparing NuGet...
 IF NOT EXIST %LocalAppData%\NuGet md %LocalAppData%\NuGet
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest 'https://www.nuget.org/nuget.exe' -OutFile '%CACHED_NUGET%'"
 
@@ -28,27 +32,28 @@ CALL %USERPROFILE%\.k\bin\kvm install latest -runtime CoreCLR -x86 || set errorl
 :run
 CALL %USERPROFILE%\.k\bin\kvm use default -runtime CLR -x86 || set errorlevel=1
 
-ECHO "Start actual builds"
+ECHO.
+ECHO Start actual builds...
 
 CALL kpm restore || set errorlevel=1
 CALL kpm build src\SmartDev.ConfigurationMapper || set errorlevel=1
 CALL kpm build tests\ConfigurationMapper.UnitTests || set errorlevel=1
 CALL kpm build tests\ConfigurationMapper.IntegrationTests || set errorlevel=1
 
-ECHO "Start tests"
+ECHO.
+ECHO Start tests...
 IF NOT EXIST test-results MD test-results
 
 cd tests\ConfigurationMapper.UnitTests
 CALL k test -xml ..\..\test-results\ConfigurationMapper.UnitTests.xml || set errorlevel=1
 cd ..\..
-@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).UploadFile('https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)', (Resolve-Path .\test-results\ConfigurationMapper.UnitTests.xml)))"
 
 cd tests\ConfigurationMapper.IntegrationTests
 CALL k test -xml ..\..\test-results\ConfigurationMapper.IntegrationTests.xml || set errorlevel=1
 cd ..\..
-@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).UploadFile('https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)', (Resolve-Path .\test-results\ConfigurationMapper.IntegrationTests.xml)))"
 
-ECHO "Start packaging"
+ECHO.
+ECHO Start packaging...
 
 IF NOT EXIST package-results MD package-results
 CALL kpm pack src\SmartDev.ConfigurationMapper --out package-results --configuration release || set errorlevel=1
