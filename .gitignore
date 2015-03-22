@@ -17,6 +17,9 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+test-results/
+package-results/
+artifacts/
 
 # Roslyn cache directories
 *.ide/
