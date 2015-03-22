@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Globalization;
 using Microsoft.Framework.ConfigurationModel;
 
@@ -15,14 +16,16 @@ namespace SmartDev.ConfigurationMapper
 
 		public void Map(object target)
 		{
-			foreach (var propertyInfo in TypeHelper.GetProperties(target.GetType()))
+			// caution: GetProperties is a method on Type on normal CLR and this is an
+			// extension method in System.Reflection.TypeExtensions in CoreCLR
+			foreach (var propertyInfo in target.GetType().GetProperties())
 			{
 				var propertyType = propertyInfo.PropertyType;
 
 				string valueString;
 				if (_configuration.TryGet(propertyInfo.Name, out valueString) && !(valueString == null))
 				{
-					object value = (TypeHelper.IsEnum(propertyType))
+					object value = (propertyType.GetTypeInfo().IsEnum)
 						? Enum.Parse(propertyType, valueString)
 						: Convert.ChangeType(valueString, propertyType, CultureInfo.InvariantCulture);
 
