@@ -8,7 +8,9 @@
 		"xunit.runner.aspnet": "2.1.0-beta1-*",
 		"xunit.runner.visualstudio": "2.1.0-beta1-*",
 
-		"SmartDev.ConfigurationMapper": "1.0.0-*"
+		"Microsoft.Framework.ConfigurationModel": "1.0.0-beta3",
+
+		"SmartDev.ConfigurationMapper": "0.9.0-*"
 	},
 	"frameworks": {
 		"aspnet50": {

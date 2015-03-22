@@ -7,6 +7,7 @@
 		"optimize": true
 	},
 	"dependencies": {
+		"Microsoft.Framework.ConfigurationModel": "1.0.0-beta3"
 	},
 
 	"frameworks": {
@@ -15,8 +16,12 @@
 			}
 		},
 		"aspnetcore50": {
+			"compilationOptions": {
+				"define": [ "ASPNETCORE50" ]
+			},
 			"dependencies": {
-				"System.Runtime": "4.0.20-beta-22523"
+				"System.Runtime": "4.0.20-beta-22523",
+				"System.Reflection.TypeExtensions": "4.0.0-beta-*"
 			}
 		}
 	}
