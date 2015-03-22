@@ -4,6 +4,12 @@ cd %~dp0
 SETLOCAL ENABLEEXTENSIONS
 SET CACHED_NUGET=%LocalAppData%\NuGet\NuGet.exe
 
+IF "%APPVEYOR_REPO_BRANCH%" == "release" (
+	SET K_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER%
+) ELSE (
+	SET K_BUILD_VERSION=%APPVEYOR_REPO_BRANCH%-%APPVEYOR_BUILD_NUMBER%
+)
+
 IF EXIST %CACHED_NUGET% goto copynuget
 echo Downloading latest version of NuGet.exe...
 IF NOT EXIST %LocalAppData%\NuGet md %LocalAppData%\NuGet
@@ -15,10 +21,6 @@ md .nuget
 copy %CACHED_NUGET% .nuget\nuget.exe > nul
 
 :restore
-IF EXIST packages\KoreBuild goto run
-.nuget\NuGet.exe install KoreBuild -ExcludeVersion -o packages -nocache -pre
-.nuget\NuGet.exe install Sake -version 0.2 -o packages -ExcludeVersion 
-
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/release/kvminstall.ps1'))"
 CALL %USERPROFILE%\.k\bin\kvm install latest -runtime CLR -x86 -alias default || set errorlevel=1
 CALL %USERPROFILE%\.k\bin\kvm install latest -runtime CoreCLR -x86 || set errorlevel=1
