@@ -12,7 +12,6 @@
 
 		"SmartDev.ConfigurationMapper": "0.9.0-*"
 	},
-
 	"frameworks": {
 		"aspnet50": {
 			"dependencies": {

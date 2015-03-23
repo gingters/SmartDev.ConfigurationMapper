@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Microsoft.Framework.ConfigurationModel;
+
 using Xunit;
+
 using SmartDev.ConfigurationMapper;
 
 namespace ConfigurationMapper.UnitTests
