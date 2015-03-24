@@ -1,5 +1,5 @@
 ﻿{
-	"version": "1.0.0-beta3-*",
+	"version": "1.0.0-*",
 	"authors": [ "Sebastian P.R. Gingter" ],
 	"description": "A small configuration to class mapper for ASP.NET 5.",
 	"compilationOptions": {
