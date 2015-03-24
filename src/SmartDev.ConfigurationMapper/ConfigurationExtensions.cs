@@ -18,16 +18,17 @@ namespace SmartDev.ConfigurationMapper
 		/// have a parameterless constructor.</typeparam>
 		/// <param name="configuration">An instance of <see cref="IConfiguration">IConfiguration</see>
 		/// to map values from.</param>
+		/// <param name="scope">A string, specifying the configuration scope / subkeys to map.</param>
 		/// <returns>A new instance of <typeparamref name="T"/> filled with configuration values
 		/// matching the property names.</returns>
-		public static T Map<T>(this IConfiguration configuration)
+		public static T Map<T>(this IConfiguration configuration, string scope = null)
 			where T : class, new()
 		{
 			if (configuration == null)
 				throw new ArgumentNullException("configuration");
 
 			var target = new T();
-			return configuration.Map(target);
+			return configuration.Map(target, scope);
 		}
 
 		/// <summary>
@@ -40,9 +41,10 @@ namespace SmartDev.ConfigurationMapper
 		/// to map values from.</param>
 		/// <param name="target">An existing object of type <typeparamref name="T"/>. Configuration
 		/// values will be mapped to this instance.</param>
+		/// <param name="scope">A string, specifying the configuration scope / subkeys to map.</param>
 		/// <returns>The same object you passed in as <paramref name="target"/>, with the properties
 		/// mapped to the configuration values.</returns>
-		public static T Map<T>(this IConfiguration configuration, T target)
+		public static T Map<T>(this IConfiguration configuration, T target, string scope = null)
 			where T : class
 		{
 			if (configuration == null)
@@ -51,7 +53,7 @@ namespace SmartDev.ConfigurationMapper
 				throw new ArgumentNullException("target");
 
 			var mapper = new ConfigurationPropertyMapper(configuration);
-			mapper.Map(target);
+			mapper.Map(target, scope);
 
 			return target;
 		}

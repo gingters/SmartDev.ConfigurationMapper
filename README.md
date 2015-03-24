@@ -43,9 +43,9 @@ Access your config:
         Console.WriteLine(myConfig.SomeTextValue);
     }
 
-### Future peek: Alternative Keys (PLANNED)
+### Alternative Keys
 
-You will be able to map your properties to other Key names by adding a Key attribute to it. So, given the same config, your can give the properties on your class more meaningful names:
+You can map your properties to other Key names by adding a Key attribute to it. So, given the same config, your can give the properties on your class more meaningful names:
 
     public class MyConfig
     {
@@ -55,7 +55,7 @@ You will be able to map your properties to other Key names by adding a Key attri
         public int LinesToPrint { get; set; }
     }
 
-### Future peek: Scoping (PLANNED)
+### Scoping
 
 In Microsoft.Framework.ConfigurationModel it is possible to scope your configuration down in a hiearchy. Either by nesting Json objects or by separating your key names with colons. You can scope your class to a certain Sub-key by either adding an attribute to your class:
 
@@ -65,7 +65,7 @@ In Microsoft.Framework.ConfigurationModel it is possible to scope your configura
         public string TextToPrint { get; set; }
         public int LinesToPrint { get; set; }
     }
-    
+
 Or by specifying the scope in the Map call:
 
     var myConfig = config.Map<MyConfig>("Sub:Key");

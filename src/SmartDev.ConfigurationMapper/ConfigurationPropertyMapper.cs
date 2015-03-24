@@ -33,10 +33,18 @@ namespace SmartDev.ConfigurationMapper
 		/// Determines the properties of the given object, and maps the corresponding configuration values onto them.
 		/// </summary>
 		/// <param name="target">The object to map the configuration values to its properties.</param>
-		public void Map(object target)
+		public void Map(object target, string scope = null)
 		{
 			if (target == null)
 				throw new ArgumentNullException("target");
+
+			var config = _configuration;
+
+			scope = GetScopeName(target, scope);
+			if (scope != null)
+			{
+				config = config.GetSubKey(scope);
+			}
 
 			// caution: GetProperties is a method on Type on normal CLR and this is an
 			// extension method in System.Reflection.TypeExtensions in CoreCLR
@@ -46,7 +54,7 @@ namespace SmartDev.ConfigurationMapper
 				var keyName = GetKeyName(propertyInfo);
 
 				string valueString;
-				if (_configuration.TryGet(keyName, out valueString) && !(valueString == null))
+				if (config.TryGet(keyName, out valueString) && !(valueString == null))
 				{
 					object value = (propertyType.GetTypeInfo().IsEnum)
 						? Enum.Parse(propertyType, valueString)
@@ -70,6 +78,25 @@ namespace SmartDev.ConfigurationMapper
 				return attribute.Name;
 
 			return propertyInfo.Name;
+		}
+
+		/// <summary>
+		/// Determines the scope name for a given object or by parameter.
+		/// </summary>
+		/// <param name="target">The object to determine the scope from.</param>
+		/// <param name="scope">The scope passed in as an argument.</param>
+		/// <returns>The argument scope, if set; the attribute defined scope, if set; otherwise null.</returns>
+		public string GetScopeName(object target, string scope)
+		{
+			// early out, passed in scope has precedence
+			if (!String.IsNullOrWhiteSpace(scope))
+				return scope;
+
+			var attribute = target.GetType().GetTypeInfo().GetCustomAttribute<ScopeAttribute>();
+			if (attribute != null)
+				return attribute.Name;
+
+			return null;
 		}
 	}
 }

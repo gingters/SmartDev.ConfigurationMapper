@@ -59,10 +59,62 @@ namespace ConfigurationMapper.IntegrationTests
 			Assert.Null(obj.Key1);
 		}
 
+		[Fact]
+		public void Mapper_Should_Use_Attribute_Scope()
+		{
+			// arrange
+			var config = BuildSampleConfiguration();
+			var obj = new ScopedSampleObject();
+
+			// act
+			config.Map(obj);
+
+			// assert
+			Assert.Equal("Scope1Value1", obj.Key1);
+		}
+
+		[Fact]
+		public void Mapper_Should_Use_Parameter_Scope()
+		{
+			// arrange
+			var config = BuildSampleConfiguration();
+			var obj = new SampleObject();
+
+			// act
+			config.Map(obj, "Scope1");
+
+			// assert
+			Assert.Null(obj.String1);
+			Assert.Equal(DateTime.MinValue, obj.Date1);
+			Assert.Equal("Scope1Value1", obj.Key1);
+		}
+
+		[Fact]
+		public void Mapper_Should_Use_Parameter_Over_Attribute_Scope()
+		{
+			// arrange
+			var config = BuildSampleConfiguration();
+			var obj = new SampleObject();
+
+			// act
+			config.Map(obj, "Scope2");
+
+			// assert
+			Assert.Null(obj.String1);
+			Assert.Equal(DateTime.MinValue, obj.Date1);
+			Assert.Equal("Scope2Value1", obj.Key1);
+		}
+
 		private class SampleObject
 		{
 			public string String1 { get; set; }
 			public DateTime Date1 { get; set; }
+			public string Key1 { get; set; }
+		}
+
+		[Scope("Scope1")]
+		private class ScopedSampleObject
+		{
 			public string Key1 { get; set; }
 		}
 

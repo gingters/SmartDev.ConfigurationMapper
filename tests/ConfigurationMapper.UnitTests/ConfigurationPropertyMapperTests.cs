@@ -12,7 +12,6 @@ namespace ConfigurationMapper.UnitTests
 {
 	public class ConfigurationPropertyMapperTests
 	{
-
 		[Fact]
 		public void Mapper_Should_Throw_On_Null_Constructor_Call()
 		{
@@ -343,6 +342,71 @@ namespace ConfigurationMapper.UnitTests
 			Assert.Equal("StringValue", keyName);
 		}
 
+		[Fact]
+		public void GetScopeName_Should_Return_Parameter_When_No_Attribute()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var scope = mapper.GetScopeName(new object(), "Test");
+
+			// assert
+			Assert.Equal("Test", scope);
+		}
+
+		[Fact]
+		public void GetScopeName_Should_Return_Attribute_When_Parameter_Is_Null()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var scope = mapper.GetScopeName(new ScopedTestObject(), null);
+
+			// assert
+			Assert.Equal("ScopeTest", scope);
+		}
+
+		[Fact]
+		public void GetScopeName_Should_Return_Attribute_When_Parameter_Is_Empty()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var scope = mapper.GetScopeName(new ScopedTestObject(), String.Empty);
+
+			// assert
+			Assert.Equal("ScopeTest", scope);
+		}
+
+		[Fact]
+		public void GetScopeName_Should_Return_Attribute_When_Parameter_Is_Whitespace()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var scope = mapper.GetScopeName(new ScopedTestObject(), " ");
+
+			// assert
+			Assert.Equal("ScopeTest", scope);
+		}
+
+		[Fact]
+		public void GetScopeName_Should_Return_Parameter_Over_Attribute()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var scope = mapper.GetScopeName(new ScopedTestObject(), "Test");
+
+			// assert
+			Assert.Equal("Test", scope);
+		}
+
 		private class TestObject
 		{
 			public String StringValue { get; set; }
@@ -356,6 +420,11 @@ namespace ConfigurationMapper.UnitTests
 
 			[Key("StringValue")]
 			public string MappedStringValue { get; set; }
+		}
+
+		[Scope("ScopeTest")]
+		private class ScopedTestObject
+		{
 		}
 
 		private enum TestEnum

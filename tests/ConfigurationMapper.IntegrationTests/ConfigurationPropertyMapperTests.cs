@@ -47,10 +47,58 @@ namespace ConfigurationMapper.IntegrationTests
 			Assert.Equal(obj.Key1, "Scope1Value1");
 		}
 
+		[Fact]
+		public void Mapper_Should_Determine_Scope_From_Attribute()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(BuildSampleConfiguration());
+			var obj = new ScopedSampleObject();
+
+			// act
+			mapper.Map(obj);
+
+			// assert
+			Assert.Equal(obj.Key1, "Scope1Value1");
+		}
+
+		[Fact]
+		public void Mapper_Should_Determine_Scope_From_Parameter()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(BuildSampleConfiguration());
+			var obj = new SampleObject();
+
+			// act
+			mapper.Map(obj, "Scope2");
+
+			// assert
+			Assert.Equal(obj.Key1, "Scope2Value1");
+		}
+
+		[Fact]
+		public void Mapper_Should_Use_Scope_From_Parameter_Over_Attribute()
+		{
+			// arrange
+			var mapper = new ConfigurationPropertyMapper(BuildSampleConfiguration());
+			var obj = new ScopedSampleObject();
+
+			// act
+			mapper.Map(obj, "Scope2");
+
+			// assert
+			Assert.Equal(obj.Key1, "Scope2Value1");
+		}
+
 		private class SampleObject
 		{
 			public string String1 { get; set; }
 			public DateTime Date1 { get; set; }
+			public string Key1 { get; set; }
+		}
+
+		[Scope("Scope1")]
+		private class ScopedSampleObject
+		{
 			public string Key1 { get; set; }
 		}
 
