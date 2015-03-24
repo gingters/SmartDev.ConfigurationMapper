@@ -1,4 +1,4 @@
-version: 0.9.0-{branch}-{build}
+version: 1.0.0-beta3-{build}
 os: Windows Server 2012 R2
 build_script:
 - build_appveyor.cmd
@@ -6,6 +6,12 @@ test: off
 artifacts:
 - path: package-results/release/*.nupkg
   name: NuGet Packages
+deploy:
+- provider: NuGet
+  api_key:
+    secure: imSQ7zHHt6QlHCQKYjDIeARKAyDXW8CqLzOW3jaVdHpfi4/htic4C7CHR4az/bC8
+  on:
+    branch: release
 on_finish:
 - ps: >-
     # upload results to AppVeyor
