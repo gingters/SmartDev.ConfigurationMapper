@@ -43,9 +43,9 @@ Access your config:
         Console.WriteLine(myConfig.SomeTextValue);
     }
 
-### Future peek: Alternative Keys (PLANNED)
+### Alternative Keys
 
-You will be able to map your properties to other Key names by adding a Key attribute to it. So, given the same config, your can give the properties on your class more meaningful names:
+You can map your properties to other Key names by adding a Key attribute to it. So, given the same config, your can give the properties on your class more meaningful names:
 
     public class MyConfig
     {
