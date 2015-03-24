@@ -21,6 +21,7 @@
 			},
 			"dependencies": {
 				"System.Runtime": "4.0.20-beta-22523",
+				"System.Reflection.Extensions": "4.0.0-beta-*",
 				"System.Reflection.TypeExtensions": "4.0.0-beta-*"
 			}
 		}

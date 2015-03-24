@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using Microsoft.Framework.ConfigurationModel;
 
@@ -51,6 +52,7 @@ namespace ConfigurationMapper.UnitTests
 			Assert.Equal('a', obj.CharValue);
 			Assert.Equal(128, obj.ByteValue);
 			Assert.Equal(TestEnum.Mon, obj.EnumValue);
+			Assert.Equal(null, obj.MappedStringValue);
 		}
 
 		[Fact]
@@ -92,6 +94,7 @@ namespace ConfigurationMapper.UnitTests
 			Assert.Equal('a', obj.CharValue);
 			Assert.Equal(128, obj.ByteValue);
 			Assert.Equal(TestEnum.Mon, obj.EnumValue);
+			Assert.Equal(null, obj.MappedStringValue);
 		}
 
 		[Fact]
@@ -291,6 +294,55 @@ namespace ConfigurationMapper.UnitTests
 			Assert.Equal(TestEnum.Wed, obj.EnumValue);
 		}
 
+		[Fact]
+		public void Mapper_Should_Map_Values_For_Attributed_Key()
+		{
+			// arrange
+			var config = new MockedConfiguration();
+			config.TestData.Add("StringValue", "TestValue");
+
+			var obj = new TestObject();
+			Assert.Equal(default(TestEnum), obj.EnumValue);
+
+			// act
+			var mapper = new ConfigurationPropertyMapper(config);
+			mapper.Map(obj);
+
+			// assert
+			Assert.Equal("TestValue", obj.StringValue);
+			Assert.Equal("TestValue", obj.MappedStringValue);
+		}
+
+		[Fact]
+		public void Mapper_Should_Determine_Key_From_PropertyName()
+		{
+			// arrange
+			var type = typeof(TestObject);
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var propertyInfo = type.GetProperty("StringValue");
+			var keyName = mapper.GetKeyName(propertyInfo);
+
+			// assert
+			Assert.Equal("StringValue", keyName);
+		}
+
+		[Fact]
+		public void Mapper_Should_Determine_Key_From_AttributeValue()
+		{
+			// arrange
+			var type = typeof(TestObject);
+			var mapper = new ConfigurationPropertyMapper(new MockedConfiguration());
+
+			// act
+			var propertyInfo = type.GetProperty("MappedStringValue");
+			var keyName = mapper.GetKeyName(propertyInfo);
+
+			// assert
+			Assert.Equal("StringValue", keyName);
+		}
+
 		private class TestObject
 		{
 			public String StringValue { get; set; }
@@ -301,6 +353,9 @@ namespace ConfigurationMapper.UnitTests
 			public char CharValue { get; set; }
 			public byte ByteValue { get; set; }
 			public TestEnum EnumValue { get; set; }
+
+			[Key("StringValue")]
+			public string MappedStringValue { get; set; }
 		}
 
 		private enum TestEnum

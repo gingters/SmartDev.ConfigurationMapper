@@ -43,9 +43,10 @@ namespace SmartDev.ConfigurationMapper
 			foreach (var propertyInfo in target.GetType().GetProperties())
 			{
 				var propertyType = propertyInfo.PropertyType;
+				var keyName = GetKeyName(propertyInfo);
 
 				string valueString;
-				if (_configuration.TryGet(propertyInfo.Name, out valueString) && !(valueString == null))
+				if (_configuration.TryGet(keyName, out valueString) && !(valueString == null))
 				{
 					object value = (propertyType.GetTypeInfo().IsEnum)
 						? Enum.Parse(propertyType, valueString)
@@ -54,6 +55,21 @@ namespace SmartDev.ConfigurationMapper
 					propertyInfo.SetValue(target, value);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Determines the configuration key name for a given <see cref="PropertyInfo"/> instance, by either
+		/// checking the <see cref="KeyAttribute"/> value of the property or simply its name.
+		/// </summary>
+		/// <param name="propertyInfo">The <see cref="PropertyInfo"/> instance for a property to determine it's configuration key name from.</param>
+		/// <returns>The value of a <see cref="KeyAttribute"/> name, if set; otherwise the property name.</returns>
+		public string GetKeyName(PropertyInfo propertyInfo)
+		{
+			var attribute = propertyInfo.GetCustomAttribute<KeyAttribute>(false);
+			if (attribute != null)
+				return attribute.Name;
+
+			return propertyInfo.Name;
 		}
 	}
 }
