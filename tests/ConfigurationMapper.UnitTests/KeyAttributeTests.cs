@@ -5,7 +5,7 @@ using Xunit;
 
 using SmartDev.ConfigurationMapper;
 
-namespace SmartDev.ConfigurationMapper.Tests
+namespace ConfigurationMapper.Tests
 {
 	public class KeyAttributeTests
 	{
@@ -47,7 +47,7 @@ namespace SmartDev.ConfigurationMapper.Tests
 		public void KeyAttribute_Should_Carry_Value()
 		{
 			var type = typeof(TestClass1);
-			var propertyInfo = type.GetTypeInfo().GetProperty("TestProperty");
+			var propertyInfo = type.GetProperty("TestProperty");
 			var attribute = propertyInfo.GetCustomAttribute(typeof(KeyAttribute)) as KeyAttribute;
 
 			Assert.NotNull(attribute);
