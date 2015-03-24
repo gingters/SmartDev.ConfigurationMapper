@@ -2,14 +2,18 @@
 
 The SmartDev.ConfigurationMapper is a small library that helps you map your ASP.NET 5 configuration to classes. It is useful when you want an easy way to access your config values strongly typed and with well defined default values.
 
+Current Version is built on ASPNET5 Beta3.
+
+Just use:
+
+    PM> Install-Package SmartDev.ConfigurationMapper -Pre
+
+NuGet: [SmartDev.ConfigurationMapper](https://www.nuget.org/packages/SmartDev.ConfigurationMapper/)
+
 ### Build status
 
-CI is hosted on [AppVeyor](http://www.appveyor.com/).  
-Project [/gingters/smartdev-configurationmapper](https://ci.appveyor.com/project/gingters/smartdev-configurationmapper).
-
-Builds:
-* master: [![Build status](https://ci.appveyor.com/api/projects/status/6xpyv803q7wawrd5/branch/master?svg=true&pendingText=master%20-%20pending&passingText=master%20-%20OK&failingText=master%20-%20failed)](https://ci.appveyor.com/project/gingters/smartdev-configurationmapper/branch/master)  
-* dev: [![Build status](https://ci.appveyor.com/api/projects/status/6xpyv803q7wawrd5/branch/dev?svg=true&pendingText=dev%20-%20pending&passingText=dev%20-%20OK&failingText=dev%20-%20failed)](https://ci.appveyor.com/project/gingters/smartdev-configurationmapper/branch/dev)  
+CI is hosted on [AppVeyor](http://www.appveyor.com/), Project [/gingters/smartdev-configurationmapper](https://ci.appveyor.com/project/gingters/smartdev-configurationmapper).  
+Builds: [![Build status](https://ci.appveyor.com/api/projects/status/6xpyv803q7wawrd5/branch/master?svg=true&pendingText=master%20-%20pending&passingText=master%20-%20OK&failingText=master%20-%20failed)](https://ci.appveyor.com/project/gingters/smartdev-configurationmapper/branch/master)  [![Build status](https://ci.appveyor.com/api/projects/status/6xpyv803q7wawrd5/branch/dev?svg=true&pendingText=dev%20-%20pending&passingText=dev%20-%20OK&failingText=dev%20-%20failed)](https://ci.appveyor.com/project/gingters/smartdev-configurationmapper/branch/dev)
 
 ## Usage
 
@@ -45,7 +49,7 @@ Access your config:
 
 ### Alternative Keys
 
-You can map your properties to other Key names by adding a Key attribute to it. So, given the same config, your can give the properties on your class more meaningful names:
+You can map your properties to other Key names by adding the `KeyAttribute` to it. So, given the same config, your can give the properties on your class more meaningful names:
 
     public class MyConfig
     {
@@ -57,7 +61,7 @@ You can map your properties to other Key names by adding a Key attribute to it. 
 
 ### Scoping
 
-In Microsoft.Framework.ConfigurationModel it is possible to scope your configuration down in a hiearchy. Either by nesting Json objects or by separating your key names with colons. You can scope your class to a certain Sub-key by either adding an attribute to your class:
+In Microsoft.Framework.ConfigurationModel it is possible to scope your configuration down in a hiearchy. Either by nesting Json objects or by separating your key names with colons. You can scope your class to a certain sub-key by either adding the `ScopeAttribute` to your class:
 
     [Scope("Some:Sub:Key")]
     public class MyConfig
@@ -66,10 +70,15 @@ In Microsoft.Framework.ConfigurationModel it is possible to scope your configura
         public int LinesToPrint { get; set; }
     }
 
-Or by specifying the scope in the Map call:
+or directly by specifying the scope in the call to Map:
 
     var myConfig = config.Map<MyConfig>("Sub:Key");
 
+### Roadmap / Further plans
+
+First of all, documentation is a top prio task for this library. Then I want to introduce an optional base class for your configuration values, that knows about the ConfigurationModel and the mapper, and can be updated when config values change. This way, you could add updateable strongly typed configuration objects directly into your DI.
+
+LuisRudge thought about adding support for arrays.
 
 ## Other stuff
 
@@ -86,6 +95,4 @@ Or by specifying the scope in the Map call:
 
 * This project sticks to the corefx [Coding style](https://github.com/dotnet/corefx/wiki/Coding-style) with two important exceptions:  
   * Indentation is done with tabs. No arguments about that.
-  * When calling methods on types, DON'T use the C# alias (i.e. `String.IsNullOrEmpty()` instead of `string.IsNullOrEmpty()`).
-
-
+  * When calling methods on types, DON'T use the C# alias (i.e. use `String.IsNullOrEmpty()` instead of `string.IsNullOrEmpty()`).
