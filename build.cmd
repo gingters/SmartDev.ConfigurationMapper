@@ -48,12 +48,24 @@ ECHO.
 ECHO Start tests...
 IF NOT EXIST test-results MD test-results
 
+CALL %USERPROFILE%\.k\bin\kvm use default -runtime CoreCLR -x86 || set errorlevel=1
+
 cd tests\ConfigurationMapper.UnitTests
-CALL k test -xml ..\..\test-results\ConfigurationMapper.UnitTests.xml || set errorlevel=1
+CALL k test -xml ..\..\test-results\ConfigurationMapper.UnitTests.CoreCLR.xml || set errorlevel=1
 cd ..\..
 
 cd tests\ConfigurationMapper.IntegrationTests
-CALL k test -xml ..\..\test-results\ConfigurationMapper.IntegrationTests.xml || set errorlevel=1
+CALL k test -xml ..\..\test-results\ConfigurationMapper.IntegrationTests.CoreCLR.xml || set errorlevel=1
+cd ..\..
+
+CALL %USERPROFILE%\.k\bin\kvm use default -runtime CLR -x86 || set errorlevel=1
+
+cd tests\ConfigurationMapper.UnitTests
+CALL k test -xml ..\..\test-results\ConfigurationMapper.UnitTests.CLR.xml || set errorlevel=1
+cd ..\..
+
+cd tests\ConfigurationMapper.IntegrationTests
+CALL k test -xml ..\..\test-results\ConfigurationMapper.IntegrationTests.CLR.xml || set errorlevel=1
 cd ..\..
 
 ECHO.
