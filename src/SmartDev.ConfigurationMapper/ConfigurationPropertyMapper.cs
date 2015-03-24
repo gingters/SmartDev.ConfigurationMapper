@@ -23,6 +23,9 @@ namespace SmartDev.ConfigurationMapper
 		/// to map values from.</param>
 		public ConfigurationPropertyMapper(IConfiguration configuration)
 		{
+			if (configuration == null)
+				throw new ArgumentNullException("configuration");
+
 			_configuration = configuration;
 		}
 

@@ -11,6 +11,15 @@ namespace ConfigurationMapper.UnitTests
 {
 	public class ConfigurationPropertyMapperTests
 	{
+
+		[Fact]
+		public void Mapper_Should_Throw_On_Null_Constructor_Call()
+		{
+			var ex = Assert.Throws<ArgumentNullException>(() => new ConfigurationPropertyMapper(null));
+
+			Assert.Equal("configuration", ex.ParamName);
+		}
+
 		[Fact]
 		public void Mapper_Should_Not_Change_Defaults_With_No_Values()
 		{
