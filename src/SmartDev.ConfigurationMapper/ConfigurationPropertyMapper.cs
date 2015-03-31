@@ -46,6 +46,8 @@ namespace SmartDev.ConfigurationMapper
 				config = config.GetSubKey(scope);
 			}
 
+			var valueTypeConverter = new ValueTypeConverter();
+
 			// caution: GetProperties is a method on Type on normal CLR and this is an
 			// extension method in System.Reflection.TypeExtensions in CoreCLR
 			foreach (var propertyInfo in target.GetType().GetProperties())
@@ -56,10 +58,7 @@ namespace SmartDev.ConfigurationMapper
 				string valueString;
 				if (config.TryGet(keyName, out valueString) && !(valueString == null))
 				{
-					object value = (propertyType.GetTypeInfo().IsEnum)
-						? Enum.Parse(propertyType, valueString)
-						: Convert.ChangeType(valueString, propertyType, CultureInfo.InvariantCulture);
-
+					object value = valueTypeConverter.Convert(valueString, propertyType);
 					propertyInfo.SetValue(target, value);
 				}
 			}
