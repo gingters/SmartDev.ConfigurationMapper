@@ -2,6 +2,8 @@
 
 The SmartDev.ConfigurationMapper is a small library that helps you map your ASP.NET 5 configuration to classes. It is useful when you want an easy way to access your config values strongly typed and with well defined default values.
 
+NuGet: [![](http://img.shields.io/nuget/v/SmartDev.ConfigurationMapper.svg?style=flat-square)](http://www.nuget.org/packages/SmartDev.ConfigurationMapper) [![](http://img.shields.io/nuget/dt/SmartDev.ConfigurationMapper.svg?style=flat-square)](http://www.nuget.org/packages/SmartDev.ConfigurationMapper)
+
 ### Build status
 
 CI is hosted on [AppVeyor](http://www.appveyor.com/).  
