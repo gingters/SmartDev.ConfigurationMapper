@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Xunit;
 
@@ -78,10 +78,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.Equal("String must be exactly one character long.", ex.Message);
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion Char
 
@@ -182,10 +179,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.Equal("Input string was not in a correct format.", ex.Message);
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion
 
@@ -231,10 +225,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.Equal("Input string was not in a correct format.", ex.Message);
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion
 
@@ -281,10 +272,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.StartsWith("The string was not recognized as a valid DateTime.", ex.Message);
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion
 
@@ -330,10 +318,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.StartsWith("Input string was not in a correct format.", ex.Message);
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion
 
@@ -385,10 +370,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.StartsWith("String was not recognized as a valid Boolean.", ex.Message);
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion
 
@@ -460,10 +442,7 @@ namespace ConfigurationMapper.UnitTests
 			var vtc = new ValueTypeConverter();
 
 			// act
-			var ex = Assert.Throws<ArgumentException>(() => vtc.Convert(value, targetType));
-
-			// assert
-			Assert.StartsWith("Requested value 'ab' was not found.", ex.Message);
+			Assert.Throws<ArgumentException>(() => vtc.Convert(value, targetType));
 		}
 		#endregion
 
