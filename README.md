@@ -72,7 +72,6 @@ Or by specifying the scope in the Map call:
 
     var myConfig = config.Map<MyConfig>("Sub:Key");
 
-
 ## Other stuff
 
 ### Interesting Background info on ConfigurationModel
@@ -89,5 +88,3 @@ Or by specifying the scope in the Map call:
 * This project sticks to the corefx [Coding style](https://github.com/dotnet/corefx/wiki/Coding-style) with two important exceptions:  
   * Indentation is done with tabs. No arguments about that.
   * When calling methods on types, DON'T use the C# alias (i.e. `String.IsNullOrEmpty()` instead of `string.IsNullOrEmpty()`).
-
-
