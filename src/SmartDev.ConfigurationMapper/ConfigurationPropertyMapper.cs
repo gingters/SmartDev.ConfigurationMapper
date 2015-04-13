@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Globalization;
 
 using Microsoft.Framework.ConfigurationModel;
 
