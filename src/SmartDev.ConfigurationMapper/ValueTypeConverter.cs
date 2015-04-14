@@ -56,10 +56,9 @@ namespace SmartDev.ConfigurationMapper
 
 			if (value == null)
 			{
-				if (typeInfo.IsValueType)
-					return Activator.CreateInstance(targetType);
-
-				return null;
+				return (typeInfo.IsValueType)
+					? Activator.CreateInstance(targetType)
+					: null;
 			}
 
 			if (targetType == typeof(TimeSpan))
