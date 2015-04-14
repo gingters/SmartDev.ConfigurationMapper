@@ -276,6 +276,54 @@ namespace ConfigurationMapper.UnitTests
 		}
 		#endregion
 
+		#region TimeSpan
+		[Theory]
+		[InlineData("00:00:00", 0, 0, 0, 0)]
+		[InlineData("1.00:00:00", 1, 0, 0, 0)]
+		[InlineData("-1.03:46:40", -1, -3, -46, -40)]
+		public void Should_Convert_TimeSpan(string value, int days, int hours,
+			int minutes, int seconds)
+		{
+			// arrange
+			var targetType = typeof(TimeSpan);
+			var vtc = new ValueTypeConverter();
+
+			// act
+			var obj = vtc.Convert(value, targetType);
+
+			// assert
+			Assert.IsType<TimeSpan>(obj);
+			Assert.Equal(new TimeSpan(days, hours, minutes, seconds), obj);
+		}
+
+		[Fact]
+		public void Should_Convert_TimeSpan_From_Null()
+		{
+			// arrange
+			var targetType = typeof(TimeSpan);
+			var vtc = new ValueTypeConverter();
+
+			// act
+			var obj = vtc.Convert(null, targetType);
+
+			// assert
+			Assert.IsType<TimeSpan>(obj);
+			Assert.Equal(default(TimeSpan), obj);
+		}
+
+		[Fact]
+		public void Should_Throw_On_Invalid_TimeSpan_String()
+		{
+			// arrange
+			var targetType = typeof(TimeSpan);
+			var value = "ab";
+			var vtc = new ValueTypeConverter();
+
+			// act
+			Assert.Throws<FormatException>(() => vtc.Convert(value, targetType));
+		}
+		#endregion
+
 		#region Byte
 		[Theory]
 		[InlineData("0", (Byte)0)]

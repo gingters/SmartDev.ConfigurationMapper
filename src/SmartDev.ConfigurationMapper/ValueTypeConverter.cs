@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Reflection;
 
@@ -61,6 +61,9 @@ namespace SmartDev.ConfigurationMapper
 
 				return null;
 			}
+
+			if (targetType == typeof(TimeSpan))
+				return TimeSpan.Parse(value);
 
 			if (typeInfo.IsEnum)
 				return Enum.Parse(targetType, value);
