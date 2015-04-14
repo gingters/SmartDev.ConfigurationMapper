@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using Microsoft.Framework.ConfigurationModel;
@@ -6,6 +6,8 @@ using Microsoft.Framework.ConfigurationModel;
 using Xunit;
 
 using SmartDev.ConfigurationMapper;
+
+using Config = Microsoft.Framework.ConfigurationModel.Configuration;
 
 namespace ConfigurationMapper.IntegrationTests
 {
@@ -130,7 +132,7 @@ namespace ConfigurationMapper.IntegrationTests
 
 			var memoryConfigSource = new MemoryConfigurationSource(data);
 
-			var config = new Configuration();
+			var config = new Config();
 			config.Add(memoryConfigSource);
 
 			return config;
