@@ -43,7 +43,9 @@ namespace SmartDev.ConfigurationMapper
 		/// </summary>
 		public void Reload()
 		{
-			Config.Reload();
+			if (Config is IConfigurationSourceRoot)
+				((IConfigurationSourceRoot)Config).Reload();
+
 			Refresh();
 		}
 

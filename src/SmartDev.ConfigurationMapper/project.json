@@ -7,20 +7,22 @@
 		"optimize": true
 	},
 	"dependencies": {
-		"Microsoft.Framework.ConfigurationModel": "1.0.0-beta3"
+		"Microsoft.Framework.ConfigurationModel": "1.0.0-beta4",
+		"Microsoft.Framework.ConfigurationModel.Interfaces": "1.0.0-beta4"
 	},
 
 	"frameworks": {
-		"aspnet50": {
+		"dnx451": {
 			"dependencies": {
 			}
 		},
-		"aspnetcore50": {
+		"dnxcore50": {
 			"compilationOptions": {
 				"define": [ "ASPNETCORE50" ]
 			},
 			"dependencies": {
-				"System.Runtime": "4.0.20-beta-22523",
+				"System.Globalization": "4.0.10-beta-*",
+				"System.Runtime": "4.0.20-beta-*",
 				"System.Reflection.Extensions": "4.0.0-beta-*",
 				"System.Reflection.TypeExtensions": "4.0.0-beta-*"
 			}
