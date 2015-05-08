@@ -1,0 +1,6 @@
+var VERSION='0.9'
+var FULL_VERSION='0.9'
+var AUTHORS='Sebastian P.R. Gingter'
+
+use-standard-lifecycle
+k-standard-goals
