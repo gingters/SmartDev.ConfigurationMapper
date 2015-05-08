@@ -1,3 +1,6 @@
 language: c#
+sudo: false
+mono:
+  - latest
 script:
   - ./build.sh
